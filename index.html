@@ -12,6 +12,7 @@
     button { background: #007BFF; color: #fff; border: none; cursor: pointer; }
     button:hover { background: #0056b3; }
     .hidden { display: none; }
+    .nav-buttons { margin-top: 20px; }
   </style>
 </head>
 <body>
@@ -47,19 +48,28 @@
     <option>Huwaei</option>
     <option>Other</option>
   </select><br>
-  <button onclick="nextPage(3)">متابعة</button>
+  <div class="nav-buttons">
+    <button onclick="prevPage(1)">عودة</button>
+    <button onclick="nextPage(3)">متابعة</button>
+  </div>
 </div>
 
 <div id="page3" class="content hidden">
   <h2>نوع المشكلة:</h2>
   <button onclick="setProblemType('قطع حوسبية ملموسة (هارد وير)')">قطع حوسبية ملموسة (هارد وير)</button><br>
   <button onclick="setProblemType('مشاكل النظام (سوفت وير)')">مشاكل النظام (سوفت وير)</button>
+  <div class="nav-buttons">
+    <button onclick="prevPage(2)">عودة</button>
+  </div>
 </div>
 
 <div id="page4" class="content hidden">
   <h2>وصف المشكلة بالضبط:</h2>
   <textarea id="problemDescription" rows="5" placeholder="اكتب المشكلة هنا..."></textarea><br>
-  <button onclick="nextPage(5)">متابعة</button>
+  <div class="nav-buttons">
+    <button onclick="prevPage(3)">عودة</button>
+    <button onclick="nextPage(5)">متابعة</button>
+  </div>
 </div>
 
 <div id="page5" class="content hidden">
@@ -70,7 +80,10 @@
     <option>14:00 مساءا</option>
     <option>18:00 مساءا</option>
   </select><br>
-  <button onclick="nextPage(6)">متابعة</button>
+  <div class="nav-buttons">
+    <button onclick="prevPage(4)">عودة</button>
+    <button onclick="nextPage(6)">متابعة</button>
+  </div>
 </div>
 
 <div id="page6" class="content hidden">
@@ -78,7 +91,10 @@
   <input type="text" id="userName" placeholder="اسمك الكامل"><br>
   <input type="text" id="userPhone" placeholder="رقم هاتفك"><br>
   <textarea id="userAddress" rows="3" placeholder="عنوانك بالتفصيل"></textarea><br>
-  <button onclick="submitForm()">تأكيد الحجز</button>
+  <div class="nav-buttons">
+    <button onclick="prevPage(5)">عودة</button>
+    <button onclick="submitForm()">تأكيد الحجز</button>
+  </div>
 </div>
 
 <div id="page7" class="content hidden">
@@ -93,6 +109,10 @@
   function nextPage(pageNum) {
     document.querySelectorAll('.content').forEach(div => div.classList.add('hidden'));
     document.getElementById('page' + pageNum).classList.remove('hidden');
+  }
+
+  function prevPage(pageNum) {
+    nextPage(pageNum);
   }
 
   function setProblemType(type) {
@@ -111,6 +131,21 @@
 
     if (!description || !date || !userName || !userPhone || !userAddress) {
       alert("يرجى تعبئة جميع الحقول.");
+      return;
+    }
+
+    let selectedDate = new Date(date);
+    let month = selectedDate.getMonth() + 1;
+    let day = selectedDate.getDate();
+    let weekday = selectedDate.getDay();
+
+    if (
+      ((month === 9 && day >= 1) || (month === 10) || (month === 11) || (month === 12 && day <= 25) ||
+       (month === 1 && day >= 9) || (month === 2) || (month === 3 && day <= 20) ||
+       (month === 4 && day >= 5) || (month === 5) || (month === 6 && day <= 20))
+      && weekday !== 6
+    ) {
+      alert("في هذه التواريخ يُسمح بالحجز فقط أيام السبت.");
       return;
     }
 
