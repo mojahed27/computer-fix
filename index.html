@@ -56,7 +56,7 @@
 
 <div id="page3" class="content hidden">
   <h2>نوع المشكلة:</h2>
-  <button onclick="setProblemType('قطع حوسبية ملموسة (هارد وير)')">قطع حوسبية ملموسة (هارد وير)</button><br>
+  <p style="color: #333; margin: 10px 0; font-size: 14px;">🔧 العمل في بدايته، وسيتم تطويره لاحقًا ليشمل إصلاح الهاردوير تدريجيًا.<br>نحن نستقبل حاليًا فقط مشاكل النظام (سوفت وير).</p>
   <button onclick="setProblemType('مشاكل النظام (سوفت وير)')">مشاكل النظام (سوفت وير)</button>
   <div class="nav-buttons">
     <button onclick="prevPage(2)">عودة</button>
@@ -90,7 +90,7 @@
   <h2>معلوماتك الشخصية:</h2>
   <input type="text" id="userName" placeholder="اسمك الكامل"><br>
   <input type="text" id="userPhone" placeholder="رقم هاتفك"><br>
-  <textarea id="userAddress" rows="3" placeholder="عنوانك بالتفصيل"></textarea><br>
+  <p style="background: #eee; padding: 10px; border-radius: 5px;">📍 العنوان: الرجاء المجيء إلى هذا العنوان: كفرقرع، شارع البير بيت رقم 39</p>
   <div class="nav-buttons">
     <button onclick="prevPage(5)">عودة</button>
     <button onclick="submitForm()">تأكيد الحجز</button>
@@ -127,9 +127,8 @@
     let time = document.getElementById('appointmentTime').value;
     let userName = document.getElementById('userName').value.trim();
     let userPhone = document.getElementById('userPhone').value.trim();
-    let userAddress = document.getElementById('userAddress').value.trim();
 
-    if (!description || !date || !userName || !userPhone || !userAddress) {
+    if (!description || !date || !userName || !userPhone) {
       alert("يرجى تعبئة جميع الحقول.");
       return;
     }
@@ -149,7 +148,7 @@
       return;
     }
 
-    let message = `طلب إصلاح جديد:\n🔧 نوع الجهاز: ${computerType}\n📋 نوع المشكلة: ${problemType}\n📝 وصف المشكلة: ${description}\n📅 الموعد: ${date} - ${time}\n👤 الاسم: ${userName}\n📞 رقم الهاتف: ${userPhone}\n📍 العنوان: ${userAddress}`;
+    let message = `طلب إصلاح جديد:\n🔧 نوع الجهاز: ${computerType}\n📋 نوع المشكلة: ${problemType}\n📝 وصف المشكلة: ${description}\n📅 الموعد: ${date} - ${time}\n👤 الاسم: ${userName}\n📞 رقم الهاتف: ${userPhone}\n📍 العنوان: كفرقرع، شارع البير بيت رقم 39`;
 
     let whatsappURL = `https://wa.me/972529604363?text=${encodeURIComponent(message)}`;
     window.location.href = whatsappURL;
